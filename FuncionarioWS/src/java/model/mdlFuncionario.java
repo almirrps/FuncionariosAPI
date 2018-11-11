@@ -10,6 +10,7 @@ package model;
  * @author Almir
  */
 public class mdlFuncionario {
+    
     private String datacad;
     private String cargo;
     private String cpf;
@@ -18,5 +19,60 @@ public class mdlFuncionario {
     private Float salario;
     private String status;
 
+    public String getDataCad() {
+        return datacad;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getUfNasc() {
+        return ufnasc;
+    }
     
+    public Float getSalario() {
+        return salario;
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+    
+    public void setDataCad(String datacad) {
+        this.datacad = datacad;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
+    
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+    
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
+    public void setUfNasc(String ufnasc) {
+        this.ufnasc = ufnasc;
+    }
+    
+    public void setSalario(Float salario) {
+        this.salario = salario;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }

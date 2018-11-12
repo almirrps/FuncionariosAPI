@@ -16,7 +16,7 @@ public class mdlFuncionario {
     private String cpf;
     private String nome;
     private String ufnasc;
-    private Float salario;
+    private Double salario;
     private String status;
 
     public String getDataCad() {
@@ -39,7 +39,7 @@ public class mdlFuncionario {
         return ufnasc;
     }
     
-    public Float getSalario() {
+    public Double getSalario() {
         return salario;
     }
     
@@ -67,7 +67,7 @@ public class mdlFuncionario {
         this.ufnasc = ufnasc;
     }
     
-    public void setSalario(Float salario) {
+    public void setSalario(Double salario) {
         this.salario = salario;
     }
 

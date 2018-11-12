@@ -30,7 +30,7 @@ public class daoFuncionario {
         Boolean retorno = false;
         
         /*Verificando se o funcionario já existe*/
-        String sql = "SELECT * FROM funcionarios where Cpf=?";
+        String sql = "SELECT * FROM funcionarios WHERE Cpf=?";
         PreparedStatement pst = daoConexao.getPreparedStatement(sql);
         try {
             pst.setString(1, funcionario.getCpf());
@@ -39,7 +39,7 @@ public class daoFuncionario {
             /*Se já existe, atualiza*/
             if(res.next())
             {
-                String sqlUp = "UPDATE funcionarios set DataCad=?,Cargo=?,Nome=?,UfNasc=?,Salario=?,Status=? where Cpf=?";
+                String sqlUp = "UPDATE funcionarios SET DataCad=?,Cargo=?,Nome=?,UfNasc=?,Salario=?,Status=? WHERE Cpf=?";
                 PreparedStatement pstUp = daoConexao.getPreparedStatement(sqlUp);
 
                 pstUp.setString(1, funcionario.getDataCad());
@@ -47,7 +47,7 @@ public class daoFuncionario {
                 pstUp.setString(3, funcionario.getCpf());
                 pstUp.setString(4, funcionario.getNome());
                 pstUp.setString(5, funcionario.getUfNasc());
-                pstUp.setFloat(6, funcionario.getSalario());
+                pstUp.setDouble(6, funcionario.getSalario());
                 pstUp.setString(7, funcionario.getStatus());
                 if(pstUp.executeUpdate()>0)
                 {
@@ -56,7 +56,7 @@ public class daoFuncionario {
             }
             else  /*Se não existe, inclui*/
             {            
-                String sqlIn = "INSERT INTO funcionarios (DataCad, Cargo, Cpf, Nome, UfNasc, Salario, Status) VALUES(?,?,?,?,?,?,?)";
+                String sqlIn = "INSERT INTO funcionarios (DataCad, Cargo, Cpf, Nome, UfNasc, Salario, Status) VALUES (?,?,?,?,?,?,?)";
                 PreparedStatement pstIn = daoConexao.getPreparedStatement(sqlIn);
 
                 pstIn.setString(1, funcionario.getDataCad());
@@ -64,7 +64,7 @@ public class daoFuncionario {
                 pstIn.setString(3, funcionario.getCpf());
                 pstIn.setString(4, funcionario.getNome());
                 pstIn.setString(5, funcionario.getUfNasc());
-                pstIn.setFloat(6, funcionario.getSalario());
+                pstIn.setDouble(6, funcionario.getSalario());
                 pstIn.setString(7, funcionario.getStatus());
 
                 if(pstIn.executeUpdate()>0)
@@ -82,7 +82,7 @@ public class daoFuncionario {
     
     public boolean excluirFuncionario(mdlFuncionario funcionario)
     {
-        String sql = "DELETE FROM funcionarios where Cpf=?";
+        String sql = "DELETE FROM funcionarios WHERE Cpf=?";
         Boolean retorno = false;
         PreparedStatement pst = daoConexao.getPreparedStatement(sql);
         try {
@@ -105,7 +105,7 @@ public class daoFuncionario {
     {
         List<mdlFuncionario> funcionarios = new ArrayList<>();
         
-        String sql = "SELECT * FROM funcionarios where Nome Like %?%";        
+        String sql = "SELECT * FROM funcionarios WHERE Nome LIKE %?%";        
         PreparedStatement pst = daoConexao.getPreparedStatement(sql);       
 
         try {
@@ -121,7 +121,7 @@ public class daoFuncionario {
                 f.setCpf(res.getString("Cpf"));
                 f.setNome(res.getString("Nome"));
                 f.setUfNasc(res.getString("UfNasc"));
-                f.setSalario(res.getFloat("Salario"));
+                f.setSalario(res.getDouble("Salario"));
                 f.setStatus(res.getString("Status"));
 
                 funcionarios.add(f);                
@@ -136,7 +136,7 @@ public class daoFuncionario {
 
     public mdlFuncionario buscarFuncCPF(mdlFuncionario funcionario)
     {
-        String sql = "SELECT * FROM funcionarios where Cpf=?";
+        String sql = "SELECT * FROM funcionarios WHERE Cpf=?";
         mdlFuncionario retorno = null;
         
         PreparedStatement pst = daoConexao.getPreparedStatement(sql);
@@ -153,7 +153,7 @@ public class daoFuncionario {
                 retorno.setCpf(res.getString("Cpf"));
                 retorno.setNome(res.getString("Nome"));
                 retorno.setUfNasc(res.getString("UfNasc"));
-                retorno.setSalario(res.getFloat("Salario"));
+                retorno.setSalario(res.getDouble("Salario"));
                 retorno.setStatus(res.getString("Status"));                                
             }
             
@@ -168,7 +168,7 @@ public class daoFuncionario {
     {
         List<mdlFuncionario> funcionarios = new ArrayList<>();
         
-        String sql = "SELECT * FROM funcionarios where Cargo=?";        
+        String sql = "SELECT * FROM funcionarios WHERE Cargo=?";        
         PreparedStatement pst = daoConexao.getPreparedStatement(sql);       
 
         try {
@@ -184,7 +184,7 @@ public class daoFuncionario {
                 f.setCpf(res.getString("Cpf"));
                 f.setNome(res.getString("Nome"));
                 f.setUfNasc(res.getString("UfNasc"));
-                f.setSalario(res.getFloat("Salario"));
+                f.setSalario(res.getDouble("Salario"));
                 f.setStatus(res.getString("Status"));
 
                 funcionarios.add(f);                
@@ -201,7 +201,7 @@ public class daoFuncionario {
     {
         List<mdlFuncionario> funcionarios = new ArrayList<>();
         
-        String sql = "SELECT * FROM funcionarios where DataCad=?";        
+        String sql = "SELECT * FROM funcionarios WHERE DataCad=?";        
         PreparedStatement pst = daoConexao.getPreparedStatement(sql);       
 
         try {
@@ -217,7 +217,7 @@ public class daoFuncionario {
                 f.setCpf(res.getString("Cpf"));
                 f.setNome(res.getString("Nome"));
                 f.setUfNasc(res.getString("UfNasc"));
-                f.setSalario(res.getFloat("Salario"));
+                f.setSalario(res.getDouble("Salario"));
                 f.setStatus(res.getString("Status"));
 
                 funcionarios.add(f);                
@@ -234,7 +234,7 @@ public class daoFuncionario {
     {
         List<mdlFuncionario> funcionarios = new ArrayList<>();
         
-        String sql = "SELECT * FROM funcionarios where Status=?";        
+        String sql = "SELECT * FROM funcionarios WHERE Status=?";        
         PreparedStatement pst = daoConexao.getPreparedStatement(sql);       
 
         try {
@@ -250,8 +250,68 @@ public class daoFuncionario {
                 f.setCpf(res.getString("Cpf"));
                 f.setNome(res.getString("Nome"));
                 f.setUfNasc(res.getString("UfNasc"));
-                f.setSalario(res.getFloat("Salario"));
+                f.setSalario(res.getDouble("Salario"));
                 f.setStatus(res.getString("Status"));
+
+                funcionarios.add(f);                
+            }
+                        
+        } catch (SQLException ex) {
+            Logger.getLogger(daoFuncionario.class.getName()).log(Level.SEVERE, null, ex);            
+        }
+        
+        return funcionarios;    
+    }
+
+    public List<mdlFuncionario> buscarFuncFaixaSalarial(double salarioIni, double salarioFim) 
+    {
+        List<mdlFuncionario> funcionarios = new ArrayList<>();
+        
+        String sql = "SELECT * FROM funcionarios WHERE Salario BETWEEN ? AND ? ";        
+        PreparedStatement pst = daoConexao.getPreparedStatement(sql);       
+
+        try {
+            pst.setDouble(1, salarioIni);
+            pst.setDouble(2, salarioFim);
+            ResultSet res = pst.executeQuery();
+             
+            while (res.next()) {
+                
+                mdlFuncionario f = new mdlFuncionario();
+                
+                f.setDataCad(res.getString("DataCad"));
+                f.setCargo(res.getString("Cargo"));
+                f.setCpf(res.getString("Cpf"));
+                f.setNome(res.getString("Nome"));
+                f.setUfNasc(res.getString("UfNasc"));
+                f.setSalario(res.getDouble("Salario"));
+                f.setStatus(res.getString("Status"));
+
+                funcionarios.add(f);                
+            }
+                        
+        } catch (SQLException ex) {
+            Logger.getLogger(daoFuncionario.class.getName()).log(Level.SEVERE, null, ex);            
+        }
+        
+        return funcionarios;    
+    }
+    
+        public List<mdlFuncionario> buscarFuncAgrupadoUFNasc() 
+    {
+        List<mdlFuncionario> funcionarios = new ArrayList<>();
+        
+        String sql = "SELECT UfNasc, COUNT(UfNasc) FROM funcionarios GROUP BY UfNasc ORDER BY UfNasc";        
+        PreparedStatement pst = daoConexao.getPreparedStatement(sql);       
+
+        try {
+            ResultSet res = pst.executeQuery();
+             
+            while (res.next()) {
+                
+                mdlFuncionario f = new mdlFuncionario();
+                
+                f.setUfNasc(res.getString("UfNasc"));
 
                 funcionarios.add(f);                
             }

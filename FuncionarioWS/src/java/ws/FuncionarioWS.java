@@ -170,4 +170,42 @@ public class FuncionarioWS {
     {
     }
 
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("Funcionario/insereFuncionario/{datacad}/{cargo}/{cpf}/{nome}/{ufnasc}/{salario}/{status}")
+    public boolean insereFuncionario(@PathParam("datacad") String dataCad, @PathParam("cargo") String Cargo,
+            @PathParam("cpf") String Cpf, @PathParam("nome") String Nome, @PathParam("ufnasc") String UfNasc,
+            @PathParam("salario") Double Salario, @PathParam("status") String Status)
+    {
+        mdlFuncionario func = new mdlFuncionario();
+        func.setDataCad(dataCad);
+        func.setCargo(Cargo);
+        func.setCpf(Cpf);
+        func.setNome(Nome);
+        func.setUfNasc(UfNasc);
+        func.setSalario(Salario);
+        func.setStatus(Status);
+        
+        boolean regSalvo;
+        daoFuncionario dao = new daoFuncionario();
+        regSalvo = dao.incluirFuncionario(func); 
+        
+        return regSalvo;
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("Funcionario/excluiFuncionario/{cpf}")
+    public boolean excluiFuncionario(@PathParam("cpf") String Cpf)
+    {
+        mdlFuncionario func = new mdlFuncionario();
+        func.setCpf(Cpf);
+        
+        boolean regExcluido;
+        daoFuncionario dao = new daoFuncionario();
+        regExcluido = dao.excluirFuncionario(func); 
+        
+        return regExcluido;
+    }
+
 }

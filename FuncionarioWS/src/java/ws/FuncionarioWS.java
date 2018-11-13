@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import model.mdlFuncionario;
@@ -160,18 +161,8 @@ public class FuncionarioWS {
         return g.toJson(lista);
     }
 
-    /**
-     * PUT method for updating or creating an instance of FuncionarioWS
-     * @param content representation for the resource
-     */
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) 
-    {
-    }
-
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("Funcionario/insereFuncionario/{datacad}/{cargo}/{cpf}/{nome}/{ufnasc}/{salario}/{status}")
     public boolean insereFuncionario(@PathParam("datacad") String dataCad, @PathParam("cargo") String Cargo,
             @PathParam("cpf") String Cpf, @PathParam("nome") String Nome, @PathParam("ufnasc") String UfNasc,
@@ -193,10 +184,9 @@ public class FuncionarioWS {
         return regSalvo;
     }
 
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
+    @GET
     @Path("Funcionario/excluiFuncionario/{cpf}")
-    public boolean excluiFuncionario(@PathParam("cpf") String Cpf)
+    public boolean excluirFuncionario(@PathParam("cpf") String Cpf)
     {
         mdlFuncionario func = new mdlFuncionario();
         func.setCpf(Cpf);
@@ -206,6 +196,16 @@ public class FuncionarioWS {
         regExcluido = dao.excluirFuncionario(func); 
         
         return regExcluido;
+    }
+
+    /**
+    * PUT method for updating or creating an instance of FuncionarioWS
+    * @param content representation for the resource
+    */
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void putJson(String content) 
+    {
     }
 
 }

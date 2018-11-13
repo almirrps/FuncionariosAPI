@@ -105,7 +105,7 @@ public class daoFuncionario {
     {
         List<mdlFuncionario> funcionarios = new ArrayList<>();
         
-        String sql = "SELECT * FROM funcionarios WHERE Nome LIKE %?%";        
+        String sql = "SELECT * FROM funcionarios WHERE Nome = ?";        
         PreparedStatement pst = daoConexao.getPreparedStatement(sql);       
 
         try {
@@ -297,11 +297,11 @@ public class daoFuncionario {
         return funcionarios;    
     }
     
-        public List<mdlFuncionario> buscarFuncAgrupadoUFNasc() 
+    public List<mdlFuncionario> buscarFuncAgrupadoUFNasc() 
     {
         List<mdlFuncionario> funcionarios = new ArrayList<>();
         
-        String sql = "SELECT UfNasc, COUNT(UfNasc) FROM funcionarios GROUP BY UfNasc ORDER BY UfNasc";        
+        String sql = "SELECT concat(UfNasc, ' - ' , COUNT(UfNasc)) AS UfNasc FROM funcionarios GROUP BY UfNasc ORDER BY UfNasc";        
         PreparedStatement pst = daoConexao.getPreparedStatement(sql);       
 
         try {

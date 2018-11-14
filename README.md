@@ -1,6 +1,7 @@
 # FuncionariosAPI
 Projeto para Testes
 
+Ferramenta de Desenvolvimento: NetBeans IDE 8.2
 Servidor: Wampp (Apache com Glassfish)
 Banco de dados: MySQL
 Nome Banco: testedesenv

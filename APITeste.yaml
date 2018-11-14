@@ -1,0 +1,321 @@
+openapi: "3.0.1"
+info:
+  title: Funcionarios API
+  version: v1
+
+paths:
+  /getListaFuncPorNome:
+    summary: Lista funcionários por nome
+    get:
+      summary: Lista todos os funcionários por nome 
+      responses:
+        '200':
+          description: Lista de funcionarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/Funcionario/listFuncNome'
+      security: 
+        - OAuth2:
+          - read
+  /getListaFuncPorCPF:
+    summary: Lista funcionários por CPF
+    get:
+      summary: Lista todos os funcionários por CPF 
+      responses:
+        '200':
+          description: Lista de funcionarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/Funcionario/listFuncCPF'
+      security: 
+        - OAuth2:
+          - read
+  /getListaFuncPorCargo:
+    summary: Lista funcionários por Cargo
+    get:
+      summary: Lista todos os funcionários por Cargo 
+      responses:
+        '200':
+          description: Lista de funcionarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/Funcionario/listFuncCargo'
+      security: 
+        - OAuth2:
+          - read
+  /getListaFuncPorDataCad:
+    summary: Lista funcionários por Data de Cadastro
+    get:
+      summary: Lista todos os funcionários por Data de Cadastro 
+      responses:
+        '200':
+          description: Lista de funcionarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/Funcionario/listFuncDataCad'
+      security: 
+        - OAuth2:
+          - read
+  /getListaFuncPorStatus:
+    summary: Lista funcionários por Status
+    get:
+      summary: Lista todos os funcionários por Status 
+      responses:
+        '200':
+          description: Lista de funcionarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/Funcionario/listFuncStatus'
+      security: 
+        - OAuth2:
+          - read
+  /getListaFuncPorFaixaSalario:
+    summary: Lista funcionários por Faixa Salarial
+    get:
+      summary: Lista todos os funcionários por Faixa Salarial 
+      responses:
+        '200':
+          description: Lista de funcionarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/Funcionario/listFuncFaixaSalarial'
+      security: 
+        - OAuth2:
+          - read
+  /getListaFuncAgrupadoUFNasc:
+    summary: Lista funcionários agrupado por UF de Nascimento
+    get:
+      summary: Lista todos os funcionários agrupado por UF de Nascimento 
+      responses:
+        '200':
+          description: Lista de funcionarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/Funcionario/listFuncAgrupaUFNasc'
+      security: 
+        - OAuth2:
+          - read
+  /inserirFuncionario:
+    post:
+      summary: Adiciona um novo funcionario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/Funcionario/inserirFuncionario'
+      responses:
+        '201':
+          description: Retorna TRUE quando a insercao foi feita com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/Funcionario/inserirFuncionario'
+      security: 
+        - OAuth2:
+          - write
+  /alterarFuncionario:
+    put:
+      summary: Atualiza dados de um funcionario existente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/Funcionario/alterarFuncionario'
+      responses:
+        '201':
+          description: Retorna TRUE quando a atualizacao foi feita com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewMovie'
+      security: 
+        - OAuth2:
+          - write
+  /excluirFuncionario:
+    delete:
+      summary: Exclui cadastro de um funcionario existente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/Funcionario/excluirFuncionario'
+      responses:
+        '201':
+          description: Retorna TRUE quando a exclusão foi feita com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/Funcionario/excluirFuncionario'
+      security: 
+        - OAuth2:
+          - write
+
+  /listFuncNome/{nome}:
+    summary: Detalhes de um funcionario
+    get:
+      summary: Traz um usuário especificando pelo nome
+      responses:
+        '200':
+          description: Detalhes de um funcionário especifico 
+          content:
+            application/json:
+              schema:
+                $ref: '#/Funcionario/listFuncNome'
+      security: 
+        - OAuth2:
+          - read
+          
+  /listFuncCPF/{cpf}:
+    summary: Detalhes de um funcionario
+    get:
+      summary: Traz um usuário especificando pelo CPF
+      responses:
+        '200':
+          description: Detalhes de um funcionário especifico 
+          content:
+            application/json:
+              schema:
+                $ref: '#/Funcionario/listFuncCPF'
+      security: 
+        - OAuth2:
+          - read
+          
+  /listFuncCargo/{cargo}:
+    summary: Detalhes de um funcionario
+    get:
+      summary: Traz um usuário especificando pelo Cargo
+      responses:
+        '200':
+          description: Detalhes de vários funcionários 
+          content:
+            application/json:
+              schema:
+                $ref: '#/Funcionario/listFuncCargo'
+      security: 
+        - OAuth2:
+          - read
+
+  /listFuncDataCad/{datacad}:
+    summary: Detalhes de um funcionario
+    get:
+      summary: Traz um usuário especificando pela data de cadastro
+      responses:
+        '200':
+          description: Detalhes de varios funcionários 
+          content:
+            application/json:
+              schema:
+                $ref: '#/Funcionario/listFuncDataCad'
+      security: 
+        - OAuth2:
+          - read
+
+  /listFuncStatus/{status}:
+    summary: Detalhes de um funcionario
+    get:
+      summary: Traz um usuário especificando pelo status
+      responses:
+        '200':
+          description: Detalhes de vários funcionários 
+          content:
+            application/json:
+              schema:
+                $ref: '#/Funcionario/listFuncDataCad'
+      security: 
+        - OAuth2:
+          - read
+
+  /listFuncFaixaSalarial/{salini}/{salfim}:
+    summary: Detalhes de vários funcionarios
+    get:
+      summary: Traz os usuários especificando pela faixa de salario
+      responses:
+        '200':
+          description: Detalhes de vários funcionários 
+          content:
+            application/json:
+              schema:
+                $ref: '#/Funcionario/listFuncFaixaSalarial'
+      security: 
+        - OAuth2:
+          - read
+
+    put:
+      summary: Atualiza um funcionario especifico
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/Funcionario/alterarFuncionario'
+      responses:
+        '200':
+          description: Retorna TRUE quando a atualização foi feita 
+          content:
+            application/json:
+              schema:
+                $ref: '#/Funcionario/alterarFuncionario'
+      security: 
+        - OAuth2:
+          - write
+    delete:
+      summary: Deleta um funcionario especifico
+      responses:
+        '204':
+          description: Retorna TRUE quando a delecao ocorreu com sucesso
+      security: 
+        - OAuth2:
+          - write
+      
+Funcionario:
+  schemas:
+    Movie:
+      allOf:
+        - $ref: '#/Funcionario/listFuncNome'
+        - required:
+          - nome
+          properties:
+            id:
+              type: string
+    NovoFuncionario:
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+      required:
+        - title
+
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows: 
+        password:
+          tokenUrl: https://example.com/oauth/token
+          scopes:
+            read: Grants read access
+write: Grants write access

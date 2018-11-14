@@ -25,53 +25,55 @@ public class daoFuncionario {
     
     }
     
-    public boolean incluirFuncionario(mdlFuncionario funcionario)
+    public boolean inserirFuncionario(mdlFuncionario funcionario)
     {
+        String sql = "INSERT INTO funcionarios (DataCad, Cargo, Cpf, Nome, UfNasc, Salario, Status) VALUES (?,?,?,?,?,?,?)";
         Boolean retorno = false;
-        
-        /*Verificando se o funcionario já existe*/
-        String sql = "SELECT * FROM funcionarios WHERE Cpf=?";
         PreparedStatement pst = daoConexao.getPreparedStatement(sql);
-        try {
-            pst.setString(1, funcionario.getCpf());
-            ResultSet res = pst.executeQuery();
+        try 
+        {
+            pst.setString(1, funcionario.getDataCad());
+            pst.setString(2, funcionario.getCargo());
+            pst.setString(3, funcionario.getCpf());
+            pst.setString(4, funcionario.getNome());
+            pst.setString(5, funcionario.getUfNasc());
+            pst.setDouble(6, funcionario.getSalario());
+            pst.setString(7, funcionario.getStatus());
             
-            /*Se já existe, atualiza*/
-            if(res.next())
+            if(pst.executeUpdate()>0)
             {
-                String sqlUp = "UPDATE funcionarios SET DataCad=?,Cargo=?,Nome=?,UfNasc=?,Salario=?,Status=? WHERE Cpf=?";
-                PreparedStatement pstUp = daoConexao.getPreparedStatement(sqlUp);
-
-                pstUp.setString(1, funcionario.getDataCad());
-                pstUp.setString(2, funcionario.getCargo());
-                pstUp.setString(3, funcionario.getCpf());
-                pstUp.setString(4, funcionario.getNome());
-                pstUp.setString(5, funcionario.getUfNasc());
-                pstUp.setDouble(6, funcionario.getSalario());
-                pstUp.setString(7, funcionario.getStatus());
-                if(pstUp.executeUpdate()>0)
-                {
-                    retorno = true;
-                }
+                retorno = true;
             }
-            else  /*Se não existe, inclui*/
-            {            
-                String sqlIn = "INSERT INTO funcionarios (DataCad, Cargo, Cpf, Nome, UfNasc, Salario, Status) VALUES (?,?,?,?,?,?,?)";
-                PreparedStatement pstIn = daoConexao.getPreparedStatement(sqlIn);
+                
+        } catch (SQLException ex) {
+            Logger.getLogger(daoFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            retorno = false;
+        }
+        
+        return retorno;
+    }
 
-                pstIn.setString(1, funcionario.getDataCad());
-                pstIn.setString(2, funcionario.getCargo());
-                pstIn.setString(3, funcionario.getCpf());
-                pstIn.setString(4, funcionario.getNome());
-                pstIn.setString(5, funcionario.getUfNasc());
-                pstIn.setDouble(6, funcionario.getSalario());
-                pstIn.setString(7, funcionario.getStatus());
+    public boolean atualizarFuncionario(mdlFuncionario funcionario)
+    {
+        String sql = "UPDATE funcionarios SET DataCad=?,Cargo=?,Nome=?,UfNasc=?,Salario=?,Status=? WHERE Cpf=?";
+        Boolean retorno = false;
+        PreparedStatement pst = daoConexao.getPreparedStatement(sql);
+        
+        try
+        {
+            pst.setString(1, funcionario.getDataCad());
+            pst.setString(2, funcionario.getCargo());
+            pst.setString(3, funcionario.getCpf());
+            pst.setString(4, funcionario.getNome());
+            pst.setString(5, funcionario.getUfNasc());
+            pst.setDouble(6, funcionario.getSalario());
+            pst.setString(7, funcionario.getStatus());
 
-                if(pstIn.executeUpdate()>0)
-                {
-                    retorno = true;
-                }
+            if(pst.executeUpdate()>0)
+            {
+                retorno = true;
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(daoFuncionario.class.getName()).log(Level.SEVERE, null, ex);
             retorno = false;
@@ -82,11 +84,11 @@ public class daoFuncionario {
     
     public boolean excluirFuncionario(mdlFuncionario funcionario)
     {
-        String sql = "DELETE FROM funcionarios WHERE Cpf=?";
+        String sql = "DELETE FROM funcionarios WHERE Cpf = ?";
         Boolean retorno = false;
         PreparedStatement pst = daoConexao.getPreparedStatement(sql);
-        try {
-
+        try 
+        {
             pst.setString(1, funcionario.getCpf());
             if(pst.executeUpdate()>0)
             {
@@ -108,12 +110,13 @@ public class daoFuncionario {
         String sql = "SELECT * FROM funcionarios WHERE Nome = ?";        
         PreparedStatement pst = daoConexao.getPreparedStatement(sql);       
 
-        try {
+        try
+        {
             pst.setString(1, funcionario.getNome());
             ResultSet res = pst.executeQuery();
              
-            while (res.next()) {
-                
+            while (res.next()) 
+            {
                 mdlFuncionario f = new mdlFuncionario();
                 
                 f.setDataCad(res.getString("DataCad"));

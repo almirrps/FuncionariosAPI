@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.POST;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
@@ -150,7 +151,7 @@ public class FuncionarioWS {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("Funcionario/listFuncAgrupaUFNasc")
-    public String getListaFuncPorFaixaSalario() 
+    public String getListaFuncAgrupadoUFNasc() 
     {        
         List<mdlFuncionario> lista;
         daoFuncionario dao = new daoFuncionario();
@@ -161,41 +162,40 @@ public class FuncionarioWS {
         return g.toJson(lista);
     }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("Funcionario/insereFuncionario/{datacad}/{cargo}/{cpf}/{nome}/{ufnasc}/{salario}/{status}")
-    public boolean insereFuncionario(@PathParam("datacad") String dataCad, @PathParam("cargo") String Cargo,
-            @PathParam("cpf") String Cpf, @PathParam("nome") String Nome, @PathParam("ufnasc") String UfNasc,
-            @PathParam("salario") Double Salario, @PathParam("status") String Status)
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("Funcionario/inserirFuncionario")
+    public boolean inserirFuncionario(String content)
     {
-        mdlFuncionario func = new mdlFuncionario();
-        func.setDataCad(dataCad);
-        func.setCargo(Cargo);
-        func.setCpf(Cpf);
-        func.setNome(Nome);
-        func.setUfNasc(UfNasc);
-        func.setSalario(Salario);
-        func.setStatus(Status);
-        
-        boolean regSalvo;
-        daoFuncionario dao = new daoFuncionario();
-        regSalvo = dao.incluirFuncionario(func); 
-        
-        return regSalvo;
+        Gson g = new Gson();
+        mdlFuncionario func = (mdlFuncionario) g.fromJson(content, mdlFuncionario.class);
+        daoFuncionario dao = new daoFuncionario();  
+        return dao.inserirFuncionario(func);
     }
 
-    @GET
-    @Path("Funcionario/excluiFuncionario/{cpf}")
-    public boolean excluirFuncionario(@PathParam("cpf") String Cpf)
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("Funcionario/alterarFuncionario")
+    public void alterarFuncionario(String content) 
+    {
+        Gson g = new Gson();
+        mdlFuncionario func = (mdlFuncionario) g.fromJson(content, mdlFuncionario.class);
+        daoFuncionario dao = new daoFuncionario();  
+        dao.atualizarFuncionario(func);
+    }
+
+    @DELETE
+    @Path("Funcionario/excluirFuncionario/{cpf}")
+    public boolean excluirFuncionario(@PathParam("cpf") String cpf)
     {
         mdlFuncionario func = new mdlFuncionario();
-        func.setCpf(Cpf);
+        func.setCpf(cpf);
         
-        boolean regExcluido;
+        mdlFuncionario fun;
         daoFuncionario dao = new daoFuncionario();
-        regExcluido = dao.excluirFuncionario(func); 
-        
-        return regExcluido;
+        fun = dao.buscarFuncCPF(func);
+
+        return dao.excluirFuncionario(fun); 
     }
 
     /**
